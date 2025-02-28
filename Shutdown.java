@@ -5,19 +5,27 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.NumberFormat;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.text.NumberFormatter;
 
 public class Shutdown {
     public static void main(String[] args) {
+        NumberFormat intFormat = NumberFormat.getIntegerInstance();
+        NumberFormatter numberFormatter = new NumberFormatter(intFormat);
+        numberFormatter.setValueClass(Integer.class);
+        numberFormatter.setAllowsInvalid(false);
+        numberFormatter.setMinimum(0);
+
         JFrame window = new JFrame("Shutdown");
         JLabel titoloLabel = new JLabel("Spegnimento programmato:"), trentaLabel = new JLabel(" 30 Min:"), unOraLabel = new JLabel("  1 Ora:"), dueOreLabel = new JLabel("  2 Ore:"), treOreLabel = new JLabel("  3 Ore:"), manualLabel = new JLabel("Manuale:"), secLabel = new JLabel("Seconds:"), minLabel = new JLabel("Minutes:"), houLabel = new JLabel("Hours:");
         JButton trentaButton = new JButton("30m"), unOraButton = new JButton("1h"), dueOreButton = new JButton("2h"), treOreButton = new JButton("3h"), manualButton = new JButton("Send");
-        JTextField manualSecField = new JTextField("0"), manualMinField = new JTextField("0"), manualHouField = new JTextField("0");
+        JFormattedTextField manualSecField = new JFormattedTextField(numberFormatter), manualMinField = new JFormattedTextField(numberFormatter), manualHouField = new JFormattedTextField(numberFormatter);
         JPanel trentaJPanel = new JPanel(), unOraJPanel = new JPanel(), dueOreJPanel = new JPanel(), treOreJPanel = new JPanel(), predefinitiJPanel = new JPanel(), textFieldJPanel = new JPanel(), minJPanel = new JPanel(), secJPanel = new JPanel(), houJPanel = new JPanel();
 
         //Graphic part
@@ -25,6 +33,7 @@ public class Shutdown {
         window.setSize(700, 600);
         window.setLayout(null);
         window.getContentPane().setBackground(new Color(33, 194, 129));
+        window.setResizable(false);
         window.add(predefinitiJPanel);window.add(titoloLabel);window.add(textFieldJPanel);window.add(manualLabel);window.add(manualButton);
 
         titoloLabel.setFont(new Font("Verdana", Font.BOLD, 30));
@@ -140,7 +149,27 @@ public class Shutdown {
             }
         });
 
+        manualButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String sec = manualSecField.getText(), min = manualMinField.getText(), hou = manualHouField.getText();
+                if(sec.isBlank())
+                    sec = "0";
 
+                if(min.isBlank())
+                    min = "0";
+
+                if(hou.isBlank())
+                    hou = "0";
+                
+                try {
+                    runTime.exec(Timing.shutTime('h', Integer.parseInt(sec), Integer.parseInt(min), Integer.parseInt(hou)));
+                } catch (NumberFormatException | IOException e1) {
+                    e1.printStackTrace();
+                }
+                window.dispose();
+            }
+        });
 
         window.setVisible(true);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
