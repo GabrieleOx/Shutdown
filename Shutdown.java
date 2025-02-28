@@ -91,6 +91,8 @@ public class Shutdown {
         manualButton.setFont(new Font("Verdana", Font.PLAIN, 18));
 
         //Action part
+        // https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
+        // 
 
         Runtime runTime = Runtime.getRuntime();
 
@@ -101,6 +103,7 @@ public class Shutdown {
                     runTime.exec(Timing.shutTime('m', 0, 30, 0));
                 } catch (IOException ex) {
                 }
+                window.dispose();
             }
         });
 
@@ -111,6 +114,7 @@ public class Shutdown {
                     runTime.exec(Timing.shutTime('h', 0, 0, 1));
                 } catch (IOException ex) {
                 }
+                window.dispose();
             }
         });
 
@@ -121,6 +125,7 @@ public class Shutdown {
                     runTime.exec(Timing.shutTime('h', 0, 0, 2));
                 } catch (IOException ex) {
                 }
+                window.dispose();
             }
         });
 
@@ -131,8 +136,11 @@ public class Shutdown {
                     runTime.exec(Timing.shutTime('h', 0, 0, 3));
                 } catch (IOException ex) {
                 }
+                window.dispose();
             }
         });
+
+
 
         window.setVisible(true);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
