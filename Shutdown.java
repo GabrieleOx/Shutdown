@@ -14,7 +14,7 @@ public class Shutdown {
         JFrame window = new JFrame("Shutdown");
         JLabel titoloLabel = new JLabel("Spegnimento programmato:"), trentaLabel = new JLabel(" 30 Min:"), unOraLabel = new JLabel("  1 Ora:"), dueOreLabel = new JLabel("  2 Ore:"), treOreLabel = new JLabel("  3 Ore:"), manualLabel = new JLabel("Manuale");
         JButton trentaButton = new JButton("30m"), unOraButton = new JButton("1h"), dueOreButton = new JButton("2h"), treOreButton = new JButton("3h"), manualButton = new JButton("Manuale");
-        JTextField manualSecField = new JTextField("*solo numeri senza virgola*"), manualMinField = new JTextField("*solo numeri senza virgola*"), manualHouField = new JTextField("*solo numeri senza virgola*");
+        JTextField manualSecField = new JTextField("0"), manualMinField = new JTextField("0"), manualHouField = new JTextField("0");
         JPanel trentaJPanel = new JPanel(), unOraJPanel = new JPanel(), dueOreJPanel = new JPanel(), treOreJPanel = new JPanel(), predefinitiJPanel = new JPanel();
 
         window.setSize(700, 600);
